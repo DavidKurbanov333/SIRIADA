@@ -28,6 +28,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:prod": "GENERATE_SOURCEMAP=false react-scripts build",
+    "deploy": "npm run build:prod && npm run deploy:backend && npm run deploy:frontend",
+    "deploy:backend": "echo 'Deploy backend to your hosting'",
+    "deploy:frontend": "echo 'Deploy frontend to your hosting'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

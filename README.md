@@ -1,63 +1,88 @@
-# SIRIADA - Форма регистрации
+# Сириада - Система Регистрации и Идентификации Абитуриентов Дальнего Востока
 
-Проект представляет собой форму регистрации пользователей для сайта SIRIADA, состоящую из:
-- Backend API на FastAPI (Python)
-- Frontend на React (TypeScript)
-- База данных SQLite
+Система для регистрации и идентификации абитуриентов Дальнего Востока, предоставляющая уникальные идентификаторы для каждого пользователя.
 
-## Структура проекта
+## Технологии
 
-```
-SIRIADA_1/
-├── backend/           # FastAPI backend
-│   ├── app/
-│   │   ├── models/    # SQLAlchemy модели
-│   │   ├── routes/    # API endpoints
-│   │   ├── schemas/   # Pydantic схемы
-│   │   └── main.py    # Точка входа
-│   └── requirements.txt
-└── frontend/         # React frontend
-    ├── src/
-    │   ├── components/
-    │   ├── types/
-    │   └── App.tsx
-    └── package.json
-```
+### Backend
+- FastAPI
+- SQLAlchemy
+- SQLite
+- Python 3.8+
+
+### Frontend
+- React
+- Material-UI
+- Axios
+- Node.js 14+
 
 ## Установка и запуск
 
 ### Backend
 
+1. Перейдите в директорию backend:
 ```bash
 cd backend
+```
+
+2. Создайте виртуальное окружение и активируйте его:
+```bash
+python -m venv venv
+source venv/bin/activate  # для Linux/Mac
+venv\Scripts\activate     # для Windows
+```
+
+3. Установите зависимости:
+```bash
 pip install -r requirements.txt
+```
+
+4. Запустите сервер:
+```bash
 uvicorn app.main:app --reload
 ```
 
+Сервер будет доступен по адресу: http://localhost:8000
+
 ### Frontend
 
+1. Перейдите в директорию frontend:
 ```bash
 cd frontend
+```
+
+2. Установите зависимости:
+```bash
 npm install
+```
+
+3. Запустите сервер разработки:
+```bash
 npm start
 ```
 
+Приложение будет доступно по адресу: http://localhost:3000
+
 ## API Endpoints
 
-- `POST /api/users/register` - Регистрация нового пользователя
-- `GET /api/users/{user_id}` - Получение информации о пользователе
+- `POST /users/register` - Регистрация нового пользователя
+- `GET /users/{user_id}` - Получение информации о пользователе
+- `GET /docs` - Swagger документация API
 
-## Технологии
+## Деплой
 
-- Backend:
-  - FastAPI
-  - SQLAlchemy
-  - Pydantic
-  - SQLite
+### Backend
+Для деплоя бэкенда рекомендуется использовать:
+- PythonAnywhere
+- Heroku
+- DigitalOcean
 
-- Frontend:
-  - React
-  - TypeScript
-  - Material-UI
-  - Formik
-  - Yup 
+### Frontend
+Для деплоя фронтенда рекомендуется использовать:
+- Vercel
+- Netlify
+- GitHub Pages
+
+## Лицензия
+
+MIT 

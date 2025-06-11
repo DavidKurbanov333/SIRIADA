@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, UniqueConstraint
 from sqlalchemy.sql import func
 from datetime import date
 import enum
-from ..database import Base  # Добавляем импорт Base
+from ..database import Base
 
 class City(str, enum.Enum):
     YAROSLAVL = "Ярославль"
@@ -22,11 +22,11 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(String, unique=True, index=True, nullable=False)  # Генерируемый ID
+    user_id = Column(String, unique=True, index=True, nullable=False)
     birth_year = Column(Integer, nullable=False)
-    city = Column(String, nullable=False)  # Храним как строку, но валидируем через enum
-    gender = Column(String, nullable=False)  # Храним как строку, но валидируем через enum
-    citizenship = Column(String, nullable=False)  # Храним как строку, но валидируем через enum
+    city = Column(String, nullable=False)
+    gender = Column(String, nullable=False)
+    citizenship = Column(String, nullable=False)
     phone_number = Column(String, nullable=False)
     password_hash = Column(String, nullable=False)
     registration_date = Column(Date, default=date.today)
@@ -36,7 +36,7 @@ class User(Base):
     )
 
     def __repr__(self):
-        return f"<User(user_id={self.user_id}, birth_year={self.birth_year}, city={self.city}, gender={self.gender}, citizenship={self.citizenship}, phone_number={self.phone_number}, password_hash={self.password_hash}, registration_date={self.registration_date})>"
+        return f"<User(user_id={self.user_id}, birth_year={self.birth_year}, city={self.city}, gender={self.gender}, citizenship={self.citizenship}, phone_number={self.phone_number}, registration_date={self.registration_date})>"
 
     def is_adult(self):
         current_year = date.today().year
