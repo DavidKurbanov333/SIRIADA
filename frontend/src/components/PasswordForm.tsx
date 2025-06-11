@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 const validationSchema = yup.object({
     password: yup
@@ -55,7 +56,7 @@ const PasswordForm: React.FC = () => {
                 console.log('Отправляемые данные:', { ...userData, password: '***' });
                 
                 // Отправляем данные на сервер
-                const response = await fetch('http://localhost:8000/users/register', {
+                const response = await fetch(`${config.apiUrl}/users/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

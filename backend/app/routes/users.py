@@ -8,7 +8,6 @@ from ..utils.id_generator import generate_id
 from passlib.context import CryptContext
 
 router = APIRouter(
-    prefix="/users",
     tags=["users"]
 )
 

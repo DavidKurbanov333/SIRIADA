@@ -8,6 +8,7 @@ import {
     Alert
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import config from '../config';
 
 interface UserProfile {
     user_id: string;
@@ -27,7 +28,7 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/users/${userId}`);
+                const response = await fetch(`${config.apiUrl}/users/${userId}`);
                 if (!response.ok) {
                     throw new Error('Пользователь не найден');
                 }
