@@ -27,7 +27,6 @@ class User(Base):
     city = Column(String, nullable=False)
     gender = Column(String, nullable=False)
     citizenship = Column(String, nullable=False)
-    phone_number = Column(String, nullable=False)
     password_hash = Column(String, nullable=False)
     registration_date = Column(Date, default=date.today)
 
@@ -36,7 +35,7 @@ class User(Base):
     )
 
     def __repr__(self):
-        return f"<User(user_id={self.user_id}, birth_year={self.birth_year}, city={self.city}, gender={self.gender}, citizenship={self.citizenship}, phone_number={self.phone_number}, registration_date={self.registration_date})>"
+        return f"<User(user_id={self.user_id}, birth_year={self.birth_year}, city={self.city}, gender={self.gender}, citizenship={self.citizenship}, registration_date={self.registration_date})>"
 
     def is_adult(self):
         current_year = date.today().year

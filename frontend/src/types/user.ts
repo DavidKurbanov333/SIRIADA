@@ -21,7 +21,6 @@ export interface User {
     city: string;
     gender: string;
     citizenship: string;
-    phone_number: string;
     registration_date: string;
 }
 
@@ -30,5 +29,4 @@ export interface UserFormData {
     city: City;
     gender: Gender;
     citizenship: Citizenship;
-    phone_number: string;
 } 

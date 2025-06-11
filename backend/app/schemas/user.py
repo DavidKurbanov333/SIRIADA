@@ -9,7 +9,6 @@ class UserBase(BaseModel):
     city: City
     gender: Gender
     citizenship: Citizenship
-    phone_number: str
 
     @validator('birth_year')
     def validate_age(cls, v):
@@ -19,16 +18,6 @@ class UserBase(BaseModel):
         if v < 1900 or v > current_year:
             raise ValueError('Некорректный год рождения')
         return v
-
-    @validator('phone_number')
-    def validate_phone(cls, v):
-        # Удаляем все нецифровые символы
-        phone = re.sub(r'\D', '', v)
-        if len(phone) != 11:
-            raise ValueError('Номер телефона должен содержать 11 цифр')
-        if not phone.startswith('7') and not phone.startswith('8'):
-            raise ValueError('Номер телефона должен начинаться с 7 или 8')
-        return phone
 
 class UserCreate(UserBase):
     password: str

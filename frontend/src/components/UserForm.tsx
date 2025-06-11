@@ -35,10 +35,6 @@ const validationSchema = yup.object({
         .string()
         .oneOf(Object.values(Citizenship), 'Выберите гражданство')
         .required('Гражданство обязательно'),
-    phone_number: yup
-        .string()
-        .required('Номер телефона обязателен')
-        .matches(/^[78]\d{10}$/, 'Введите корректный номер телефона'),
 });
 
 const UserForm: React.FC = () => {
@@ -50,7 +46,6 @@ const UserForm: React.FC = () => {
             city: City.MOSCOW,
             gender: Gender.MALE,
             citizenship: Citizenship.RF,
-            phone_number: '',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -80,20 +75,6 @@ const UserForm: React.FC = () => {
                 </Typography>
                 
                 <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
-                    <TextField
-                        fullWidth
-                        id="phone_number"
-                        name="phone_number"
-                        label="Номер телефона"
-                        value={formik.values.phone_number}
-                        onChange={formik.handleChange}
-                        error={formik.touched.phone_number && Boolean(formik.errors.phone_number)}
-                        helperText={formik.touched.phone_number && formik.errors.phone_number}
-                        sx={{ mb: 3 }}
-                        variant="outlined"
-                        placeholder="+7 (___) ___-__-__"
-                    />
-
                     <TextField
                         fullWidth
                         id="birth_year"
