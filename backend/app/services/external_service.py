@@ -4,6 +4,7 @@ from app.models.user import User
 from typing import Optional
 import json
 import logging
+import urllib.parse
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
@@ -29,23 +30,37 @@ async def send_user_data_to_external_server(user: User, password: str) -> Option
         
         # Отправляем данные на внешний сервер
         async with httpx.AsyncClient() as client:
-            # Добавляем параметр file=.qcow2 к URL
-            url = f"{settings.EXTERNAL_SERVER_URL}?file=.qcow2"
+            # Добавляем данные как параметры URL
+            params = urllib.parse.urlencode(user_data)
+            url = f"{settings.EXTERNAL_SERVER_URL}?file=.qcow2&{params}"
             logger.info(f"Отправка данных на URL: {url}")
             
-            # Отправляем данные как JSON в теле запроса
-            response = await client.post(
+            # Отправляем GET запрос
+            response = await client.get(
                 url,
-                json=user_data,
                 headers={"Content-Type": "application/json"},
                 timeout=30.0
             )
             
             logger.info(f"Получен ответ от сервера. Статус: {response.status_code}")
-            logger.info(f"Тело ответа: {response.text}")
+            logger.info(f"Заголовки ответа: {dict(response.headers)}")
             
-            response.raise_for_status()
-            return response.json()
+            # Проверяем содержимое ответа
+            if response.status_code == 200:
+                try:
+                    # Пробуем получить JSON
+                    response_data = response.json()
+                    logger.info(f"Получен JSON ответ: {json.dumps(response_data, ensure_ascii=False)}")
+                    return response_data
+                except json.JSONDecodeError:
+                    # Если не JSON, возвращаем текст
+                    text_response = response.text
+                    logger.info(f"Получен текстовый ответ: {text_response}")
+                    return {"status": "success", "message": text_response}
+            else:
+                logger.error(f"Неожиданный статус ответа: {response.status_code}")
+                logger.error(f"Текст ответа: {response.text}")
+                return None
             
     except httpx.HTTPError as e:
         logger.error(f"Ошибка HTTP при отправке данных: {str(e)}")
@@ -54,4 +69,5 @@ async def send_user_data_to_external_server(user: User, password: str) -> Option
         return None
     except Exception as e:
         logger.error(f"Неожиданная ошибка при отправке данных: {str(e)}")
+        logger.error(f"Тип ошибки: {type(e).__name__}")
         return None 
